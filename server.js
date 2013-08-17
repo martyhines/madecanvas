@@ -1,4 +1,5 @@
 var express = require('express'),
+	userResource = require('./routes/user'),
 	app = express();
 
 // Middleware 
@@ -17,9 +18,7 @@ app.get('/api/v1/user', function(req, res){
   res.send('hello users');
 });
 
-app.get('/api/v1/user/:id', function(req, res){
-  res.send('hello users ' + req.params.id);
-});
+app.get('/api/v1/user/:id', userResource.getById);
 
 app.get('/api/v1/user/:id/canvas', function(req, res){
   res.send('List of user # ' + req.params.id + ' canvas');
