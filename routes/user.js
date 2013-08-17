@@ -27,6 +27,21 @@ exports.getById = function (req, res) {
     });
 }
 
+exports.addUser = function(req, res) {
+    var userModel = req.body;
+    console.log('Adding userModel: ' + JSON.stringify(userModel));
+    db.collection('users', function(err, collection) {
+        collection.insert(userModel, {safe:true}, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred'});
+            } else {
+                console.log('Success: ' + JSON.stringify(result[0]));
+                res.send(result[0]);
+            }
+        });
+    });
+}
+
 
 var populateDB = function() {
  

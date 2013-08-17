@@ -28,11 +28,7 @@ app.get('/api/v1/user/:userId/canvas/:canvasId', function(req, res){
   res.send('Canvas #' + req.params.canvasId + ' of the user #' + req.params.userId);
 });
 
-app.post('/api/v1/user', function (req, res) {
-	var userModel = req.body;
-	// Database insert.
-	res.send("Insert " + userModel.username);
-});
+app.post('/api/v1/user', userResource.addUser);
 
 
 // Canvas resource
