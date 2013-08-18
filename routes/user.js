@@ -5,7 +5,7 @@ var mongo = require('mongodb');
     server = new Server('localhost', 27017, {auto_reconnect: true, safe:true});
 
 db = new Db('madecanvas', server);
- 
+
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'madecanvas' database");
@@ -16,17 +16,29 @@ db.open(function(err, db) {
             }
         });
     }
-}); 
+});
 
+//GET
 exports.getById = function (req, res) {
-	var id = req.params.id;
-	db.collection('users', function(err, collection) {
-        collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
-            res.send(item);
-        });
-    });
+    var id = req.params.id;
+    db.collection('users', function(err, collection) {
+          collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
+              res.send(item);
+          });
+      });
 }
 
+exports.getUsersCanvas = function (req, res) {
+    //TODO: add db layer
+    res.send('List of user # ' + req.params.id + ' canvas');
+}
+
+exports.getUsersCanvasById = function (req, res) {
+    //TODO: add db layer
+    res.send('Canvas #' + req.params.canvasId + ' of the user #' + req.params.userId);
+}
+
+//POST
 exports.addUser = function(req, res) {
     var userModel = req.body;
     console.log('Adding userModel: ' + JSON.stringify(userModel));
@@ -44,21 +56,21 @@ exports.addUser = function(req, res) {
 
 
 var populateDB = function() {
- 
+
     var users = [
     {
         username: "node",
         fullName: "NodeJS"
-        
+
     },
     {
-    	username: "python",
-    	fullName: "Python"
+        username: "python",
+        fullName: "Python"
     }
     ];
- 
+
     db.collection('users', function(err, collection) {
         collection.insert(users, {safe:true}, function(err, result) {});
     });
- 
+
 }

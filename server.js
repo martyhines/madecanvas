@@ -20,13 +20,9 @@ app.get('/api/v1/user', function(req, res){
 
 app.get('/api/v1/user/:id', userResource.getById);
 
-app.get('/api/v1/user/:id/canvas', function(req, res){
-  res.send('List of user # ' + req.params.id + ' canvas');
-});
+app.get('/api/v1/user/:id/canvas', userResource.getUsersCanvas);
 
-app.get('/api/v1/user/:userId/canvas/:canvasId', function(req, res){
-  res.send('Canvas #' + req.params.canvasId + ' of the user #' + req.params.userId);
-});
+app.get('/api/v1/user/:userId/canvas/:canvasId', userResource.getUsersCanvasById);
 
 app.post('/api/v1/user', userResource.addUser);
 
